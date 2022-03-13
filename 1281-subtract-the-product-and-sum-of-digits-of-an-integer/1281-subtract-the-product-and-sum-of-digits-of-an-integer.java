@@ -3,9 +3,8 @@ class Solution {
             int x = 1 ;
             int z=0;
          while(n>=1){
-                 int y = n%10;
-                 z+=y;
-                 x*=y;
+                 z+=n%10;
+                 x*=n%10;
                  n/=10;
          }
             return x-z;
