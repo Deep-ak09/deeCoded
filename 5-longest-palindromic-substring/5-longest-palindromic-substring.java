@@ -1,41 +1,37 @@
 class Solution {
-    public String longestPalindrome(String s) {
-        int i = s.length();
-        if (i == 1 || i == 0)
-            return s;
-        String z = "";
-        String max = "";
-        for (int j = 0; j < s.length(); j++) {
-            i = s.length();
-            z = s;
-            z = z.substring(j, i);
-            while (i > j && (i - j - 1) < z.length()) {
-                    if (max.length() > (i - j - 1))
-                        break;
-                if (isPalindrome(z)) {
-                    if (z.length() > max.length()) {
-                        max = z;
-                        break;
-                    }
-                } else {
-                    // System.out.println(z);
-                    z = z.substring(0, i - j - 1);
-                }
-                i--;
+
+public String longestPalindrome(String s) {
+    
+       if(s.length() == 1)
+			 return s;
+       
+       String max_Sub = "";
+		
+	     for (int i = 0; i < s.length()-1; i++) {
+	      String currentSubOdd = 	CheckPalindrome(s,i,i);
+                     // For Odd substring Palindrome length like bab
+	      String currentSubEven = 	CheckPalindrome(s,i,i+1);
+                     // For Even substring Palindrome length like baba
+	      
+	      if(currentSubOdd.length() > max_Sub.length())
+	    	  max_Sub = currentSubOdd;
+	      
+	      if(currentSubEven.length() > max_Sub.length())
+	    	  max_Sub = currentSubEven;
+
             }
-        }
-        return max;
-    }
-        public static boolean isPalindrome(String s) {
-        int left = 0;
-        int right = s.length() - 1;
-        while (left < right) {
-            if (s.charAt(left) != s.charAt(right)) {
-                return false;
-            }
-            left++;
-            right--;
-        }
-        return true;
-    }
+	     
+	   return max_Sub;
+}
+
+	public String CheckPalindrome(String s, int left, int right) {
+	
+   while(left>=0 && right < s.length() && s.charAt(left) == s.charAt(right))
+		{							
+				--left;
+				++right;
+		}
+	 
+	 return s.substring(left+1,right);
+}
 }
