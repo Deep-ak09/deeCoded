@@ -40,36 +40,23 @@ class GFG {
 //User function Template for Java
 
 class Solution {
-    // Function to delete middle element of a stack.
     int index;
     int count = 0;
-
-    // Stack<Integer> temp = new Stack<Integer>();
     public void deleteMid(Stack<Integer> s, int sizeOfStack) {
         // code here
         if (sizeOfStack % 2 == 0)
             index = sizeOfStack / 2;
         if (sizeOfStack % 2 != 0)
             index =sizeOfStack / 2;
-        // System.out.println(index);
         deleteTheElement(s, count);
     }
 
     public void deleteTheElement(Stack<Integer> s, int count) {
-        // System.out.println(count);
-        // if (count == index){
-        //     s.pop();
-        //     return ;
-        // }
-        // if (count > index)
-        //     return;
         if (count == index){
             s.pop();
             return ;
         }
         count++;
-        // if (s.peek() == null)
-        //     return;
         int temp = s.pop();
         deleteTheElement(s, count);
         s.push(temp);
