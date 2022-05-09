@@ -1,22 +1,19 @@
 class Solution {
-    public int romanToInt(String s) {
-            int sum = 0;
-        HashMap<Character,Integer> map=new HashMap<Character,Integer>();
-            map.put('I',1);
-            map.put('V',5);
-            map.put('X',10);
-            map.put('L',50);
-            map.put('C',100);
-            map.put('D',500);
-            map.put('M',1000);                    
-            sum+=map.get(s.charAt(0));
-            for(int i=1;i<s.length();i++){
-                    if(map.get(s.charAt(i))>map.get(s.charAt(i-1))){
-                    sum+=map.get(s.charAt(i))-2*map.get(s.charAt(i-1));
-                    }else{
-                    sum+=map.get(s.charAt(i));
-                         }
-            }
-        return sum;
+public int romanToInt(String str) {
+    int sum=0;
+    int prev=0;
+    
+    for(int i=0;i<str.length();i++){
+        int num=0;
+        char ch=str.charAt(i);
+        num=ch=='I'?1:ch=='V'?5:ch=='X'?10:ch=='L'?50:ch=='C'?100:ch=='D'?500:ch=='M'?1000:0;
+        
+        prev=prev<num? prev :0 ;
+        sum=sum+num-prev-prev;
+    
+        prev=num;
+        
     }
-}
+    
+    return sum;
+}  }
