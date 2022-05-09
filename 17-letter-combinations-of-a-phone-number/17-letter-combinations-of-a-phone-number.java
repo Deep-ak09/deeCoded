@@ -1,52 +1,34 @@
 class Solution {
     public List<String> letterCombinations(String digits) {
-            List<String> list = new LinkedList<>();
-            if(digits.isEmpty()) return list;
-            String pDigits = "";
-            list = combinations(pDigits,digits);
-           return list;
+        List<String> ret=new ArrayList<>();
+        if(digits==null || digits.length()==0){
+            return ret;
+        } 
+        char[][] map=new char[10][];
+        map[2]=new char[]{'a','b','c'};
+        map[3]=new char[]{'d','e','f'};
+        map[4]=new char[]{'g','h','i'};
+        map[5]=new char[]{'j','k','l'};
+        map[6]=new char[]{'m','n','o'};
+        map[7]=new char[]{'p','q','r','s'};
+        map[8]=new char[]{'t','u','v'};
+        map[9]=new char[]{'w','x','y','z'};
+        char[] arr=new char[digits.length()];
+        
+        recur(digits,0,map,ret,arr);
+        return ret;
     }
-       
-    public List<String> combinations(String pDigits ,String digits){
-        if(digits.length()==0){
-                List<String> list = new LinkedList<>();
-                list.add(pDigits);
-                return list;
-           }
-               
-            List<String> list = new LinkedList<>();
-                int digit = digits.charAt(0)-'0';
-            
-                if(digit==7){
-                        char z ='a';
-                        for(int i = (digit-2)*3; i<(digit-1)*3; i++){
-                                char ch = (char)('a'+i);
-                                z=ch;
-               list.addAll(combinations(pDigits+ch,digits.substring(1)));
-                }
-                             char ch = (char)(z+1);
-               list.addAll(combinations(pDigits+ch,digits.substring(1)));
-                }else if(digit==9){
-                      char []arr = {'w','x','y','z'};  
-                              for(int i=0;i<4;i++){
-                                                                                                                         list.addAll(combinations(pDigits+arr[i],digits.substring(1)));  
-                        }
-                }
-                else if(digit==8){
-                        System.out.println("chal rha hai");
-                        char []arr = {'t','u','v'};
-                        for(int i=0;i<3;i++){
-                                                                                                                         list.addAll(combinations(pDigits+arr[i],digits.substring(1)));  
-                        }
-                }else{
-                        
-                for(int i = (digit-2)*3; i<(digit-1)*3; i++){
-                       char ch = (char)('a'+i);
-                    list.addAll(combinations(pDigits+ch,digits.substring(1)));
-                }
-            
-                }
-                return list;
-            
+    
+    private void recur(String digits, int index, char[][] map, 
+                       List<String> ret, char[] arr){
+        if(index==arr.length){
+            ret.add(String.valueOf(arr));
+            return;
         }
+        char cur=digits.charAt(index);
+        for(char c:map[cur-'0']){
+            arr[index]=c;
+            recur(digits, index+1, map, ret, arr);
+        }
+    }
 }
